@@ -16,9 +16,7 @@ class AllRecordsFromSubjectIdQuery(WrappedQuery):
             param_type=str,
         )
 
-        query_template = {
-            "subject.subject_id": subject_id_param
-        }
+        query_template = {"subject.subject_id": subject_id_param}
         super().__init__(name, query_template, self.post_processing_function)
 
     def post_processing_function(self, records):
