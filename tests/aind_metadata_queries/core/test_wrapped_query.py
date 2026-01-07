@@ -43,5 +43,6 @@ class WrappedQueryTest(unittest.TestCase):
         expected_query = {"subject.subject_id": "bar"}
         self.assertEqual(formatted_query, expected_query)
 
+
 if __name__ == "__main__":
     unittest.main()
