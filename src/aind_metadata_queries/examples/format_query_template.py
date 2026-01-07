@@ -9,7 +9,7 @@ def run():
     wrapped_query = QUERIES_REGISTRY["all_records_from_subject_id"]
 
     # Define parameters to format the query template (name must match QueryParameter names)
-    my_parameters_dict = {"subject_id": "123456"}
+    my_parameters = {"subject_id": "123456"}
     formatted_nosql_query = wrapped_query.format(my_parameters)
 
     print("Final query", formatted_nosql_query)
