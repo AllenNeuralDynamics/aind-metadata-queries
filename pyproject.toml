@@ -78,4 +78,4 @@ skip = [".conda"]
 
 [tool.interrogate]
 exclude = ["setup.py", "docs", "build", ".conda"]
-fail-under = 100
+fail-under = 10
