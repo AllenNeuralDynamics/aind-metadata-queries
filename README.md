@@ -10,6 +10,42 @@
 ## Usage
  - To use this repo: TODO
 
+## Repo Structure
+```
+aind-metadata-queries/
+├── README.md
+├── src/
+│   └── aind_metadata_queries/
+│       ├── __init__.py
+│       ├── core/
+|           ├── __init__.py
+|           ├── query_parameter.py
+│           └── wrapped_query.py
+│       ├── examples/
+│           └── format_query_template.py
+│       └── queries/
+|           ├── __init__.py
+│           └── all_records_from_subject_id.py
+├── tests/
+│   └── test_core.py
+└── scripts/
+    └── run_pipeline.py
+```
+
+### WrappedQuery
+Useful queries are defined as classes that inherit from aind_metadata_queries.core.WrappedQuery. This provides a few key benefits:
+ - Parameterization. Parameters can be defined by using aind_metadata_queries.core.QueryParameter, and properly formatted using WrappedQuery.format()
+ - Post-processing. Best practices for using the DocDB suggest to use simple noSQL queries, and leave heavy computation for a post-processing step.
+
+### QueryParameter
+Queries can define user-provided parameters with aind_metadata_queries.core.QueryParameter. This gives all parameters the following properies:  
+ - name (str)
+ - description (str)
+ - param_type (type object)
+ - required (bool)
+ - default (Any)
+ - validator (Callable)
+ 
 ## Level of Support
 Please indicate a level of support:
  - [ ] Supported: We are releasing this code to the public as a tool we expect others to use. Issues are welcomed, and we expect to address them promptly; pull requests will be vetted by our staff before inclusion.
