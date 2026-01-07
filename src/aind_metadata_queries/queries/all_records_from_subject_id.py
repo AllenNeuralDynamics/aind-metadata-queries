@@ -15,9 +15,7 @@ class AllRecordsFromSubjectIdQuery(WrappedQuery):
                 "subject_id", "The ID of the subject", str
             )
         }
-        super().__init__(
-            name, query_template, self.post_processing_function
-        )
+        super().__init__(name, query_template, self.post_processing_function)
 
     def post_processing_function(self, records):
         """Post-process the retrieved records if necessary."""
