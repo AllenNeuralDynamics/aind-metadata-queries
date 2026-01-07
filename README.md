@@ -27,9 +27,8 @@ aind-metadata-queries/
 |           ├── __init__.py
 │           └── all_records_from_subject_id.py
 ├── tests/
-│   └── test_core.py
-└── scripts/
-    └── run_pipeline.py
+│   └── <unit tests>
+
 ```
 
 ### WrappedQuery
