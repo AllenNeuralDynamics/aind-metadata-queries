@@ -37,26 +37,25 @@ def build_modality_pipeline(subject_id: str, modalities: list[str]) -> list[dict
                 "data_description.data_level": "derived",
             }
         },
-        {"$unwind": "$data_description.modalities"},
-        {"$unwind": "$data_description.source_data"},
+        {"$unwind": "$data_description.modality"},
         {
             "$match": {
-                "data_description.modalities.abbreviation": {"$in": modalities}
+                "data_description.modality.abbreviation": {"$in": modalities}
             }
         },
         {"$sort": {"data_description.creation_time": -1}},
         {
             "$group": {
                 "_id": {
-                    "source_data": "$data_description.source_data",
-                    "modality": "$data_description.modalities.abbreviation",
+                    "input_data_name": "$data_description.input_data_name",
+                    "modality": "$data_description.modality.abbreviation",
                 },
                 "doc": {"$first": "$$ROOT"},
             }
         },
         {
             "$group": {
-                "_id": "$_id.source_data",
+                "_id": "$_id.input_data_name",
                 **{
                     modality: {
                         "$max": {
@@ -80,7 +79,7 @@ def build_modality_pipeline(subject_id: str, modalities: list[str]) -> list[dict
         {
             "$project": {
                 "_id": 0,
-                "source_data": "$_id",
+                "input_data_name": "$_id",
                 **{
                     modality: {
                         "name": f"${modality}.data_description.name",
@@ -95,7 +94,10 @@ def build_modality_pipeline(subject_id: str, modalities: list[str]) -> list[dict
     return pipeline
 
 if __name__ == "__main__":
-    subject_id = "123456"
+    subject_id = "827543"
     modalities = ["pophys", "behavior"]
     pipeline = build_modality_pipeline(subject_id, modalities)
     results = docdb_api_client.aggregate_docdb_records(pipeline)
+    print(f"Results: {len(results)}")
+    for r in results:
+        print(r)
