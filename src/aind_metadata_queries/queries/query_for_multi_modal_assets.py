@@ -1,5 +1,14 @@
+from aind_data_access_api.document_db import MetadataDbClient
 
+API_GATEWAY_HOST = "api.allenneuraldynamics.org"
+DATABASE = "metadata_index"
+COLLECTION = "data_assets"
 
+docdb_api_client = MetadataDbClient(
+    host=API_GATEWAY_HOST,
+    database=DATABASE,
+    collection=COLLECTION,
+)
 
 def build_modality_pipeline(subject_id: str, modalities: list[str]) -> list[dict]:
     """
@@ -84,3 +93,9 @@ def build_modality_pipeline(subject_id: str, modalities: list[str]) -> list[dict
     ]
     
     return pipeline
+
+if __name__ == "__main__":
+    subject_id = "123456"
+    modalities = ["pophys", "behavior"]
+    pipeline = build_modality_pipeline(subject_id, modalities)
+    results = docdb_api_client.aggregate_docdb_records(pipeline)
